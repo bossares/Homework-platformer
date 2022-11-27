@@ -7,22 +7,22 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] private GameObject _container;
     [SerializeField] private int _capacity;
 
-    private List<GameObject> _pool = new List<GameObject>();
+    private List<Enemy> _pool = new List<Enemy>();
 
-    protected void Initialize(GameObject prefab)
+    protected void Initialize(Enemy prefab)
     {
         for (int i = 0; i < _capacity; i++)
         {
-            GameObject spawned = Instantiate(prefab, _container.transform);
-            spawned.SetActive(false);
+            Enemy spawned = Instantiate(prefab, _container.transform);
+            spawned.gameObject.SetActive(false);
 
             _pool.Add(spawned);
         }
     }
 
-    protected bool TryGetObject(out GameObject result)
+    protected bool TryGetObject(out Enemy result)
     {
-        result = _pool.FirstOrDefault(pullObject => pullObject.activeSelf == false);
+        result = _pool.FirstOrDefault(pullObject => pullObject.gameObject.activeSelf == false);
 
         return result != null;
     }

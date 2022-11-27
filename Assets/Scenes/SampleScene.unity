@@ -345,7 +345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _container: {fileID: 1972937521}
   _capacity: 15
-  _enemyPrefab: {fileID: 4958394759743878285, guid: 1c4c0b7df6d8dca429d9d2c8b8b67e70, type: 3}
+  _enemyPrefab: {fileID: 9033203291004687399, guid: 1c4c0b7df6d8dca429d9d2c8b8b67e70, type: 3}
   _spawnPoints:
   - {fileID: 93780495}
   - {fileID: 1017490407}

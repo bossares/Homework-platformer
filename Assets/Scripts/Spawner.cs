@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class Spawner : ObjectPool
 {
-    [SerializeField] private GameObject _enemyPrefab;
+    [SerializeField] private Enemy _enemyPrefab;
     [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private float _delay = 2f;
 
     private void Start()
     {
         Initialize(_enemyPrefab);
-        StartCoroutine(InstantiateEnemies());
+        StartCoroutine(SpawnEnemies());
     }
 
-    private IEnumerator InstantiateEnemies()
+    private IEnumerator SpawnEnemies()
     {
         WaitForSeconds waitTime = new WaitForSeconds(_delay);
         Vector3 nextDirection = Vector3.left;
@@ -23,7 +23,7 @@ public class Spawner : ObjectPool
         {
             for (int i = 0; i < _spawnPoints.Length; i++)
             {
-                if (TryGetObject(out GameObject enemy))
+                if (TryGetObject(out Enemy enemy))
                     SetEnemy(enemy.GetComponent<Enemy>(), _spawnPoints[i].position, nextDirection);
 
                 nextDirection = -nextDirection;
