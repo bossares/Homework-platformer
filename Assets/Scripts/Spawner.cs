@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : ObjectPool
+public class Spawner : MonoBehaviour
 {
+    [SerializeField] private GameObject _container;
+    [SerializeField] private int _capacity;
     [SerializeField] private Enemy _enemyPrefab;
     [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private float _delay = 2f;
+    ObjectPool<Enemy> _enemyPool;
 
     private void Start()
     {
-        Initialize(_enemyPrefab);
+        _enemyPool = new ObjectPool<Enemy>(_enemyPrefab, _container, _capacity);
         StartCoroutine(SpawnEnemies());
     }
 
@@ -23,7 +26,7 @@ public class Spawner : ObjectPool
         {
             for (int i = 0; i < _spawnPoints.Length; i++)
             {
-                if (TryGetObject(out Enemy enemy))
+                if (_enemyPool.TryGetObject(out Enemy enemy))
                     SetEnemy(enemy.GetComponent<Enemy>(), _spawnPoints[i].position, nextDirection);
 
                 nextDirection = -nextDirection;
